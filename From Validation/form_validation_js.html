@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From Validation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+            text-transform: capitalize;
+        }
+
+
+        .log-in-page {
+            /* height: 500px; */
+            width: 80%;
+            background-color: #2e8a42;
+            border: 2px solid gray;
+            display: flex;
+            justify-content: space-evenly;
+            margin: auto;
+            margin-top: 100px;
+            margin-bottom: 100px;
+
+        }
+
+        .box1 {
+            /* height: ; */
+            /* width: 5; */
+            font-size: 60px;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Open Sans", sans-serif;
+
+        }
+
+
+        .lin {
+            height: 230px;
+            width: 15px;
+            color: rgb(137, 33, 33);
+            border: 2px solid white;
+            border-radius: 20px;
+            background-color: white;
+            margin-right: 20px;
+            margin-left: 20px;
+
+        }
+
+
+        .from-validation {
+            width: 30%;
+            margin: 20px 0;
+
+        }
+
+        .from-validation h2 {
+            text-align: center;
+            margin-bottom: 15px;
+
+        }
+
+        #from {
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        .details label {
+            display: block;
+            margin-bottom: 10px;
+
+        }
+
+        .details input {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            
+
+        }
+
+        .details select {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 5px;
+            background-color: #218838;
+            font-size: 20px;
+            color: #ffff;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgb(68, 68, 232);
+        }
+
+        .error {
+            color: red;
+        }
+
+        .valid {
+            color: green;
+            /* background-color: green; */
+        }
+
+        .invalid {
+            border-color: red;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="log-in-page">
+        <div class="box1">
+            <div class="lin"></div>
+            <div class="text"> From <br>
+                Validation with  <br>
+                Javascript</div>
+        </div>
+        <div class="from-validation">
+            <form id="from">
+                <h2>From Validation</h2>
+                <div class="details">
+                    <label for="full name">full name</label>
+                    <input type="text" name="" id="name" placeholder="enter your name" required>
+                    <span class="error" id="nameerror"></span>
+                </div>
+                <div class="details">
+                    <label for="email">email address</label>
+                    <input type="email" name="" id="email" required placeholder="enter your email address">
+                    <span class="error" id="emailerror"></span>
+                </div>
+                <div class="details">
+                    <label for="password">password</label>
+                    <input type="password" name="" id="password" placeholder="enter your password" required>
+                    <span class="error" id="passworderror"></span>
+                </div>
+                <div class="details">
+                    <label for="date">birth date</label>
+                    <input type="date" name="" id="birthdate" required>
+                    <span class="error" id="birthdateerror"></span>
+                </div>
+
+                <div class="details">
+                    <label for="">gender</label>
+                    <select name="" id="gender" required>
+                        <option value="">select your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">female</option>
+                        <option value="other">other</option>
+                    </select>
+                    <span class="error" id="gendererror"></span>
+                </div>
+                <button type="submit">submit</button>
+
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('name').addEventListener('input', validName);
+        document.getElementById("email").addEventListener("input", validEmail)
+        document.getElementById("password").addEventListener("input",validPassword)
+        document.getElementById("birthdate").addEventListener("input",validBirthdate)
+        document.getElementById("gender").addEventListener("input",validgender)
+
+
+        function validName() {
+            const nameField = document.getElementById("name");
+            const nameError = document.getElementById("nameerror");
+            const name = nameField.value;
+
+            if (name.length < 3 || name.length > 25) {
+                nameError.textContent = "name must be between 3 and 25 characters"
+                nameField.classList.add("invalid");
+                nameField.classList.remove("valid");
+            }
+            else {
+                nameError.textContent = " ";
+                nameField.classList.add("valid");
+                nameField.classList.remove("invalid")
+
+            }
+        }
+        function validEmail() {
+            const emailField = document.getElementById("email");
+            const emailError = document.getElementById("emailerror");
+            const email = emailField.value;
+            const emailp= /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailp.test(email)) {
+                emailError.textContent = "Invalid email format (ashvin@123gmail.com)";
+                emailField.classList.add("invalid");
+                emailField.classList.remove("valid");
+
+            }
+            else {
+                emailError.textContent = " ";
+                emailField.classList.add("valid");
+                emailField.classList.remove("invalid");
+
+            }
+        }
+        function validPassword(){
+            const passwordField = document.getElementById("password") ;
+            const passwordError = document.getElementById("passworderror");
+            const password = passwordField.value;
+            const passwordp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+            if(!passwordp.test(password)){
+                passwordError.textContent ="password must be at 8 characters long";
+                passwordField.classList.add("invalid");
+                passwordField.classList.remove("valid");
+            }
+            else{
+                passwordError.textContent=" ";
+                passwordField.classList.add("valid");
+                passwordField.classList.remove("invalid");
+            }
+            
+        }
+        function validBirthdate(){
+            const birthdateField = document.getElementById("birthdate");
+            const birthdateError = document.getElementById("birthdateerror");
+            const birthdate =birthdateField.value;
+
+            if(!birthdate){
+                birthdateError.textContent = "Select Your Date of Birth";
+                birthdateField.classList.add("invalid");
+                birthdateField.classList.remove("valid");
+
+            }
+            else{
+                birthdateError.textContent = " ";
+                birthdateField.classList.add("valid");
+                birthdateField.classList.remove("invalid")
+            }
+        }
+
+        function validgender(){
+            const genderField = document.getElementById("gender");
+            const genderError = document.getElementById("gendererror");
+            const gender = genderField.value;
+
+            if(!genderp){
+                genderError.textContent = "Select Your Gender";
+                genderField.classList.add("invalid");
+                genderField.classList.remove("valid");
+
+            }
+            else{
+                genderField.textContent=" ";
+                genderField.classList.add("valid");
+                genderField.classList.remove("invalid")
+            }
+        }
+    </script>
+
+</body>
+
+</html>

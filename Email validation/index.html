@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Validation</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Flamenco:wght@300;400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+    </style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "poppins";
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(156, 174, 174);
+            font-family: "poppins";
+
+        }
+
+        .field {
+            height: 60px;
+            width: 450px;
+            background-color: #ffff;
+            position: relative;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .field input {
+            height: 100%;
+            width: 100%;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            padding: 0 20px;
+        }
+
+        .field .icon-email {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translatey(-50%);
+            font-size: 25px;
+            color: gray;
+            /* display: none; */
+        }
+
+        .field .icon-check {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translatey(-50%);
+            font-size: 25px;
+            color: green;
+            display: none;
+        }
+        #error{
+            color: red;
+        }
+        .div{
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <form action="">
+        <div class="field">
+            <input type="email" name="" id="" placeholder="Enter your email">
+            <i class="fa-regular fa-envelope icon-email"></i>
+            <i class="fa-regular fa-circle-check icon-check"></i>
+            <div class="div">
+            <b id="error"></b>
+
+            </div>
+        </div>
+    </form>
+    <script>
+        const input = document.querySelector("input");
+        icon_email = document.querySelector(".icon-email");
+        icon_chack = document.querySelector(".icon-check");
+        error = document.getElementById("error")
+        //  email = input.value;
+        // console.log(input,icon);
+
+        input.addEventListener("keyup", () => {
+            let valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (input.value === "") {
+                error.textContent = "enter your email";
+                icon_email.style.color = "red";
+                input.style.border = "2px solid red";
+                error.style.color="red"
+
+
+            }
+            else if (!(valid.test(input.value))) {
+                // input.style.border="none"
+                error.style.color="red"
+
+                icon_email.style.color = "red";
+                input.style.border = "2px solid red";
+                error.textContent = "Enter your valid email ";
+            }
+            else {
+                icon_email.style.display = "none";
+                icon_chack.style.display = "block";
+                input.style.border = "2px solid green";
+                error.textContent = "your email is valid";
+                error.style.color="yellow"
+            }
+
+
+
+
+        })
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export HTML Table to Excel</title>
+    <style>
+        body{
+            height: 100vh;
+            width: 100wh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+        .btn{
+            text-align: center;
+            padding-top: 20px;
+        }
+        button{
+            height: 30px;
+            font-size: 20px;
+
+        }
+        button:hover{
+            background-color: blue;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <table id="dataTable" border="2">
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Country</th>
+            </tr>
+        
+        
+            <tr>
+                <td>Sagar</td>
+                <td>23</td>
+                <td>India</td>
+            </tr>
+            <tr>
+                <td>rohit</td>
+                <td>24</td>
+                <td>nepal</td>
+            </tr>
+            <tr>
+                <td>Charlie</td>
+                <td>35</td>
+                <td>Canada</td>
+            </tr>
+    </table>
+    <div class="btn"><button onclick="exportTableToExcel('dataTable', 'data')">Export to Excel</button></div>
+</div>
+
+   <script>
+    function exportTableToExcel(tableID, filename = '') {
+    let downloadLink;
+    const dataType = 'application/vnd.ms-excel';
+    const tableSelect = document.getElementById(tableID);
+    const tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    // console.log(tableSelect);
+    
+    
+    filename = filename ? filename + '.xls' : 'excel_data.xls';
+    
+    downloadLink = document.createElement("a");
+    document.body.appendChild(downloadLink);
+    
+    if (navigator.msSaveOrOpenBlob) {
+        navigator.msSaveOrOpenBlob(blob, filename);
+    } else {
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    
+        downloadLink.download = filename;
+        
+        downloadLink.click();
+    }
+}
+
+   </script>
+</body>
+</html>
