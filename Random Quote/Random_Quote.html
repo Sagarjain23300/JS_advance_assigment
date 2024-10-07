@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Flamenco:wght@300;400&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+    </style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Open Sans", sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #273d9e;
+        }
+
+        .container {
+            width: 550px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px 20px;
+            margin: 0 10px;
+        }
+
+        header {
+            text-align: center;
+            font-size: 30px;
+            font-weight: 600;
+        }
+
+        .Quote {
+            display: flex;
+            justify-content: center;
+        }
+
+        .pera {
+            text-align: center;
+
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        i:last-child {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .content {
+            margin: 30px 0;
+        }
+
+        .name {
+            display: flex;
+            justify-content: flex-end;
+            /* margin: 20px 0; */
+            margin-top: 20px;
+            font-style: italic;
+            font-size: 20px;
+        }
+
+        .button {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        ul li {
+            list-style: none;
+            height: 50px;
+            width: 50px;
+            display: flex;
+            border: 2px solid blue;
+            /* justify-content: space-around; */
+            border-radius: 25px;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            transition: 0.3s;
+            color: #273d9e;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #273d9e;
+            border: none;
+            padding: 15px 25px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 30px;
+            color: white;
+        }
+
+        .button ul {
+            display: flex;
+        }
+
+        ul li:hover {
+            color: white;
+            background-color: #273d9e;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>Quote Of The Day </header>
+        <div class="content">
+            <div class="Quote">
+                <i class="fa-solid fa-quote-left"></i>
+                <p class="pera">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima mollitia amet saepe,
+                    libero voluptas </p>
+                <i class="fa-solid fa-quote-right"></i>
+            </div>
+            <div class="name">
+                <div class="byname">anonymous!
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="button">
+            <ul>
+                <li class="volume"><i class="fa-solid fa-volume-high"></i></li>
+                <li class="copy"><i class="fa-solid fa-copy"></i></li>
+                <li class="twitter"><i class="fa-brands fa-twitter"></i></li>
+            </ul>
+            <button class="btn">New Quote</button>
+        </div>
+
+    </div>
+
+    <script>
+
+        pera = document.querySelector(".pera");
+        btn = document.querySelector(".btn");
+        byname = document.querySelector(".byname");
+        // console.log(pera);
+        // console.log(btn);
+        volumebtn = document.querySelector(".volume");
+        copybtn = document.querySelector(".copy");
+        twitterbtn = document.querySelector(".twitter")
+        // console.log(copy);
+
+
+        btn.addEventListener("click", Quote);
+        volumebtn.addEventListener("click", volume)
+        copybtn.addEventListener("click", copy)
+        twitterbtn.addEventListener("click", twitter)
+
+
+
+        function Quote() {
+            fetch(" https://type.fit/api/quotes").then(res => res.json()).then(result => {
+                console.log(result);
+
+                pera.innerText = result.content;
+                byname.innerText = result.author;
+            })
+
+        }
+
+        function volume() {
+            let xyz = new SpeechSynthesisUtterance(`${pera.innerText} by ${byname.innerText}`)
+            speechSynthesis.speak(xyz)
+        }
+        function copy() {
+            navigator.clipboard.writeText(`${pera.innerText} by ${byname.innerText}`)
+        }
+
+        function twitter() {
+            let link =
+                window.open(link, "blank")
+        }
+
+
+    </script>
+</body>
+
+</html>

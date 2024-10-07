@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            width: 1000px;
+            box-sizing: border-box;
+            padding-bottom: 10px;
+        }
+
+        .controls,
+        .image-container {
+            width: 50%;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            margin-left: 20px;
+            font-size: 19px;
+        }
+
+        .controls input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        .controls-group,
+        .filters,
+        .transformations {
+            margin-top: 20px;
+        }
+
+        .controls-group label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        .controls-group input[type="range"] {
+            width: 100%;
+        }
+
+        .filters,
+        .transformations {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            border: 2px solid gray;
+            padding: 3px;
+            margin: 3px;
+
+        }
+
+        input {
+            padding: 20px;
+            padding-left: 30px;
+
+        }
+
+        button {
+
+            padding: 10px 20px;
+            margin: 3px;
+            font-size: 16px;
+            /* padding: 20px ; */
+            cursor: pointer;
+            border: 1px solid black;
+            /* border: none; */
+            /* background-color: #2300d2; */
+            background-color: white;
+            
+            /* margin-top: 28ox; */
+            color: black;
+            transition: background-color 0.3s;
+            border-radius: 5px;
+
+        }
+
+        .btn-save {
+            height: 50px;
+        }
+
+        button:hover {
+            background-color:blue;
+            color: white;
+        }
+
+        .box2 {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 20px;
+
+        }
+
+        .imge {
+            height: 100%;
+            width: 100%;
+            margin-top: 80px;
+        }
+
+        img {
+            height: 100%;
+            width: 100%;
+        }
+
+        .image-container {
+            height: 400px;
+            width: 450px;
+        }
+
+        .box2 input {
+            width: 50%;
+        }
+
+        .b {
+            width: 300px;
+        }
+
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .grid button {
+            height: 50px;
+            width: 180px;
+            margin: 5px;
+
+        }
+        .lable1{
+            margin-left: 60px;
+            font-size: 20px;
+            margin-top: 10px;
+        }
+        
+        /* img{
+            height: 100%;
+            width: 80%;
+            padding-left: 20px;
+        } */
+        /* 
+        .image-container img {
+            width: 100%;
+            max-width: 100%;
+            transition: all 0.3s ease;
+        } */
+        .reset{
+            padding: 20px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="controls">
+            <h1> Easy Image Editor</h1>
+
+            <div class="filters">
+                <label for="" class="lable1">Filters</label>
+                <div class="grid">
+                    <button onclick="applyFilter('brightness(150%)')">Brightness</button>
+                    <button onclick="applyFilter('saturate(200%)')">Saturate</button>
+                    <button onclick="applyFilter('invert(100%)')">Invert</button>
+                    <button onclick="applyFilter('grayscale(100%)')">Grayscale</button>
+
+                </div>
+                <label for="" class="lable1">Rotate & Flip</label>
+              <div class="grid">
+                <div class="brighntness1 grid">
+                    <label for="brightness">Brightness: <span id="brightnessValue">100</span>%</label>
+                    <input type="range" id="brightness" class="b" min="0" max="200" value="100">
+                </div>
+
+              
+              </div>
+
+              <div class="grid">
+                <button id="rotate">rotate</button>
+                <button onclick="applyFilter('blur(5px)')">Blur</button>
+
+                <button id="flipX">Flip Horizontal</button>
+                <button id="flipY">Flip Vertical</button>
+              </div>
+
+            </div>
+           <div class="reset">
+            <button onclick="applyFilter('none')">RESET FILTERS</button>
+           </div>
+
+
+
+        </div>
+        <div class="image-container">
+            <div class="imge"><img id="image" src="./i1 (3).jpg" alt="Editable Image"></div>
+            <div class="box2">
+                <input type="file" id="chooseImage" class="chooseImage" accept="image/*">
+                <button id="saveImage" class="btn-save">Save Image</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const image = document.getElementById('image');
+        const brightnessSlider = document.getElementById('brightness');
+        const brightnessValue = document.getElementById('brightnessValue');
+        const rotateButton = document.getElementById('rotate');
+        const flipXButton = document.getElementById('flipX');
+        const flipYButton = document.getElementById('flipY');
+        const saveImageButton = document.getElementById('saveImage');
+        const chooseImageInput = document.getElementById('chooseImage');
+
+        let rotation = 0;
+        let flipX = 1;
+        let flipY = 1;
+
+        brightnessSlider.addEventListener('input', (e) => {
+            const brightness = e.target.value;
+            brightnessValue.textContent = brightness;
+            applyTransformations();
+        });
+
+        rotateButton.addEventListener('click', () => {
+            rotation += 90;
+            applyTransformations();
+        });
+
+        flipXButton.addEventListener('click', () => {
+            flipX *= -1;
+            applyTransformations();
+        });
+
+        flipYButton.addEventListener('click', () => {
+            flipY *= -1;
+            applyTransformations();
+        });
+
+        chooseImageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                image.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        saveImageButton.addEventListener('click', () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = image.naturalWidth;
+            canvas.height = image.naturalHeight;
+            ctx.filter = image.style.filter;
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate(rotation * Math.PI / 180);
+            ctx.scale(flipX, flipY);
+            ctx.drawImage(image, -canvas.width / 2, -canvas.height / 2);
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL();
+            link.download = 'edited-image.png';
+            link.click();
+        });
+
+        function applyFilter(filter) {
+            image.style.filter = filter;
+        }
+
+        function applyTransformations() {
+            const brightness = brightnessSlider.value;
+            image.style.filter = `brightness(${brightness}%)`;
+            image.style.transform = `rotate(${rotation}deg) scaleX(${flipX}) scaleY(${flipY})`;
+        }
+    </script>
+</body>
+
+</html>
